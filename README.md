@@ -6,4 +6,15 @@ In this project, I leveraged the power of React's useState, useReducer, useRef, 
 
 ## Screenshots
 
-![Alt Text](src/assets/screenshots/screenshot_desktop_home.png)
+<div style="display: flex;">
+  <img src="src/assets/screenshots/screenshot_desktop_home.png" alt="Desktop Screenshot" style="width: 50%; padding: 5px;">
+  <img src="src/assets/screenshots/screenshot_desktop_cart.png" alt="Desktop Cart Screenshot" style="width: 50%; padding: 5px;">
+</div>
+
+### Mobile Screenshots
+
+<div style="display: flex;">
+  <img src="src/assets/screenshots/screenshot_mobile_home.png" alt="Mobile Screenshot" style="width: 25%; padding: 5px;">
+  <img src="src/assets/screenshots/screenshot_mbile_cart_empty.png" alt="Mobile Empty Cart Screenshot" style="width: 25%; padding: 5px;">
+  <img src="src/assets/screenshots/screenshot_mbile_cart.png" alt="Mobile Cart Screenshot" style="width: 25%; padding: 5px;">
+</div>
