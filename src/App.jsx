@@ -5,6 +5,7 @@ import Cart from "./components/Cart/Cart";
 import Header from "./components/Layout/Header";
 import Meals from "./components/Meals/Meals";
 import CartProvider from "./utils/CartProvider";
+import Footer from "./components/Layout/Footer";
 
 function App() {
   const [cartShown, setCartShown] = useState(false);
@@ -26,6 +27,7 @@ function App() {
         </div>
       </main>
       {cartShown && <Cart hideCart={hideCartHandler} />}
+      <Footer />
     </CartProvider>
   );
 }
