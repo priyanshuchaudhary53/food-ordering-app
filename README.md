@@ -11,12 +11,12 @@ React, TailwindCSS
 
 [![Tech Stack](https://skillicons.dev/icons?i=react,tailwind)](https://skillicons.dev)
 
-## Screenshots
-
-![Desktop Screenshot](https://images2.imgbox.com/ba/d2/duO9gtnN_o.png)
-
-![Desktop Cart Screenshot](https://images2.imgbox.com/ee/1e/JWS3OwYA_o.png)
-
 ## Demo
 
 [Visit site](https://eaton-react.netlify.app/)
+
+## Screenshots
+
+![Desktop Screenshot](https://images2.imgbox.com/6b/a6/bMxQYH3f_o.png)
+
+![Desktop Cart Screenshot](https://images2.imgbox.com/52/b9/4MO5uV1R_o.png)
