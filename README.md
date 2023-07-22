@@ -8,6 +8,7 @@ In this project, I leveraged the power of React's useState, useReducer, useRef, 
 
 **Client:**
 React, TailwindCSS
+
 [![Tech Stack](https://skillicons.dev/icons?i=react,tailwind)](https://skillicons.dev)
 
 ## Screenshots
