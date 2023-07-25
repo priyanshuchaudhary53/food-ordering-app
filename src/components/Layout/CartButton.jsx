@@ -13,7 +13,7 @@ const CartButton = (props) => {
 
   return (
     <button
-      className="bg-green-400 flex relative py-2 px-6 rounded-full"
+      className="bg-green-400 flex relative py-2 px-6 rounded-full shadow-md"
       onClick={showCart}
     >
       <span className="mr-2">
