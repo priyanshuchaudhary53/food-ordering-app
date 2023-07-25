@@ -1,69 +1,101 @@
+import { useEffect, useState } from "react";
+
+import { ThreeDots } from "react-loader-spinner";
 import MealSections from "./MealSections";
 
-const RECOMMENDED_MEALS = [
-  {
-    id: "b1",
-    name: "Chicken Biryani",
-    description:
-      "Medium Spicy | With Bone | Chicken biryani is a savory chicken and rice dish that includes layers of chicken, rice, and aromatics that are steamed together. The bottom layer of rice absorbs all the chicken juices as it cooks, giving it a tender texture and rich flavor, while the top layer of rice turns out white and fluffy. Served with Gravy and onions",
-    price: 199.0,
-  },
-  {
-    id: "r1",
-    name: "Chicken Shawarma Roll",
-    description:
-      "Medium Spicy | Scrumptious chicken shawarma with a generous stuffing of juicy chicken pieces and onion. Served with mayonniese and mint sauce. item can't be provide extra sauce and dips)",
-    price: 149.0,
-  },
-];
-
-const BIRYANI_MEALS = [
-  {
-    id: "b1",
-    name: "Chicken Biryani",
-    description:
-      "Medium Spicy | With Bone | Chicken biryani is a savory chicken and rice dish that includes layers of chicken, rice, and aromatics that are steamed together. The bottom layer of rice absorbs all the chicken juices as it cooks, giving it a tender texture and rich flavor, while the top layer of rice turns out white and fluffy. Served with Gravy and onions",
-    price: 199.0,
-  },
-  {
-    id: "b2",
-    name: "Mutton Biryani",
-    description:
-      "Chicken Richly flavored aromatic rice layered with marinated mutton pieces in a delicate blend of whole spices. Served with Gravy and onions.",
-    price: 249.0,
-  },
-];
-
-const MAIN_COURSE = [
-  {
-    id: "m1",
-    name: "Chicken Masala",
-    description:
-      "A delightfully flavor-packed dish of mouthwatering chicken masala - perfect to satisfy your cravings",
-    price: 230.0,
-  },
-  {
-    id: "m2",
-    name: "Mutton Handi",
-    description:
-      "Comes with SALAD | Marinated mutton pieces sauteed with Indian style masala paste and finished inside a handi",
-    price: 600.0,
-  },
-  {
-    id: "m3",
-    name: "Butter Chicken",
-    description:
-      "AThe all time favorite delicious butter chicken with juicy chicken chunks in a creamy gravy",
-    price: 199.0,
-  },
-];
-
 function AvialableMeals() {
+  const [meals, setMeals] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+  const [httpError, setHttpError] = useState();
+
+  useEffect(() => {
+    const fetchMeals = async () => {
+      const response = await fetch(
+        "https://react-http-2aaae-default-rtdb.asia-southeast1.firebasedatabase.app/meals.json"
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          "Something went wrong! Please refresh or try again later."
+        );
+      }
+
+      const responseData = await response.json();
+
+      const RECOMMENDED_MEALS = [];
+      const BIRYANI_MEALS = [];
+      const MAIN_COURSE = [];
+
+      const sortData = (key, arr) => {
+        const main = responseData[key];
+        for (const id in main) {
+          arr.push({
+            id: id,
+            name: main[id].name,
+            description: main[id].description,
+            price: main[id].price,
+          });
+        }
+      };
+
+      for (const key in responseData) {
+        if (key === "main") {
+          sortData("main", MAIN_COURSE);
+        }
+
+        if (key === "biryani") {
+          sortData("biryani", BIRYANI_MEALS);
+        }
+        if (key === "recommended") {
+          sortData("recommended", RECOMMENDED_MEALS);
+        }
+      }
+
+      setMeals({
+        main: MAIN_COURSE,
+        recommended: RECOMMENDED_MEALS,
+        biryani: BIRYANI_MEALS,
+      });
+      setIsLoading(false);
+    };
+
+    fetchMeals().catch((error) => {
+      setIsLoading(false);
+      setHttpError(error.message);
+    });
+  }, []);
+
+  if (isLoading || httpError) {
+    return (
+      <div className="flex justify-center items-center mt-10">
+        {isLoading && (
+          <ThreeDots
+            height="50"
+            width="50"
+            radius="9"
+            color="#4ADE80"
+            ariaLabel="three-dots-loading"
+            wrapperStyle={{}}
+            wrapperClassName="test-classname"
+            visible={true}
+          />
+        )}
+        {httpError && (
+          <p className="text-lg md:text-xl text-center tracking-tight font-medium text-gray-500">
+            {httpError}
+          </p>
+        )}
+      </div>
+    );
+  }
+
   return (
     <>
-      <MealSections title="Recommended" meals={RECOMMENDED_MEALS} />
-      <MealSections title="Main Course" meals={MAIN_COURSE} />
-      <MealSections title="Biryani" meals={BIRYANI_MEALS} />
+      <>
+        <MealSections title="Recommended" meals={meals.recommended} />
+        <MealSections title="Main Course" meals={meals.main} />
+        <MealSections title="Biryani" meals={meals.biryani} />
+      </>
     </>
   );
 }
