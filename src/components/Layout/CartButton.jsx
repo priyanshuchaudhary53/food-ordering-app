@@ -1,13 +1,12 @@
-import { useContext } from "react";
 import CartIcon from "../Cart/CartIcon";
-import CartContext from "../../utils/CartContext";
+import { useSelector } from "react-redux";
 
 const CartButton = (props) => {
   const { showCart } = props;
 
-  const cartCtx = useContext(CartContext);
+  const cartItems = useSelector((state) => state.cart.items);
 
-  const numberOfItem = cartCtx.items.reduce((curNum, item) => {
+  const numberOfItem = cartItems.reduce((curNum, item) => {
     return curNum + item.amount;
   }, 0);
 

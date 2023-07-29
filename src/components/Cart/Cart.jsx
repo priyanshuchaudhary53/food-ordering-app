@@ -1,8 +1,9 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { cartActions } from "../../store/cartSlice";
 
 import Button from "../UI/Button";
 import Modal from "../UI/Modal";
-import CartContext from "../../utils/CartContext";
 import CartItem from "./CartItem";
 import CheckoutForm from "./CheckoutForm";
 import { ThreeDots, Watch } from "react-loader-spinner";
@@ -10,22 +11,25 @@ import { ThreeDots, Watch } from "react-loader-spinner";
 const Cart = (props) => {
   const { hideCart } = props;
 
+  const dispatch = useDispatch();
+  const totalAmount = useSelector(
+    (state) => `₹${state.cart.totalAmount.toFixed(2)}`
+  );
+  const cartItems = useSelector((state) => state.cart.items);
+
   const [isCheckout, setIsCheckout] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [didSubmit, setDidSubmit] = useState(false);
 
-  const cartCtx = useContext(CartContext);
-
-  const totalAmount = `₹${cartCtx.totalAmount.toFixed(2)}`;
-  const hasItems = cartCtx.items.length > 0;
+  const hasItems = cartItems.length > 0;
 
   const cartItemRemoveHandler = (id) => {
-    cartCtx.removeItem(id);
+    dispatch(cartActions.removeItem(id));
   };
 
-  const cartItems = (
+  const cartItemsUl = (
     <ul className="overflow-auto max-h-[160px] pr-2">
-      {cartCtx.items.map((item) => (
+      {cartItems.map((item) => (
         <CartItem
           key={item.id}
           name={item.name}
@@ -49,7 +53,7 @@ const Cart = (props) => {
         "https://react-http-2aaae-default-rtdb.asia-southeast1.firebasedatabase.app/orders.json",
         {
           method: "POST",
-          body: JSON.stringify({ user: userData, orderItem: cartCtx.items }),
+          body: JSON.stringify({ user: userData, orderItem: cartItems }),
         }
       );
       if (!response.ok) {
@@ -62,7 +66,7 @@ const Cart = (props) => {
     setIsSubmitting(false);
     setDidSubmit(true);
 
-    cartCtx.clearCart();
+    dispatch(cartActions.clearCart());
   };
 
   const loader = (
@@ -99,7 +103,7 @@ const Cart = (props) => {
 
   const cartItemsDiv = (
     <>
-      {hasItems && cartItems}
+      {hasItems && cartItemsUl}
 
       {hasItems > 0 ? (
         <>
