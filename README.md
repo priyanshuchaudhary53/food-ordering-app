@@ -7,7 +7,7 @@ In this project, I leveraged the power of React's useState, useReducer, useRef, 
 ## Tech Stack
 
 **Client:**
-React, Redux Toolkit, TailwindCSS
+React, Redux, TailwindCSS
 
 [![Tech Stack](https://skillicons.dev/icons?i=react,redux,tailwind)](https://skillicons.dev)
 
