@@ -11,9 +11,7 @@ const Navbar = (props) => {
             eat<span className="text-green-500">on</span>
           </Link>
         </h1>
-        <div className="">
-          <CartButton showCart={showCart} />
-        </div>
+        <div className="">{showCart && <CartButton showCart={showCart} />}</div>
       </div>
     </nav>
   );
