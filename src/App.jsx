@@ -1,34 +1,22 @@
-import { useState } from "react";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
-import "./App.css";
-import Cart from "./components/Cart/Cart";
-import Header from "./components/Layout/Header";
-import Meals from "./components/Meals/Meals";
-import Footer from "./components/Layout/Footer";
+import RootLayout from "./pages/Root";
+import Homepage from "./pages/Homepage";
+import Checkout from "./pages/Checkout";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <RootLayout />,
+    children: [
+      { index: true, element: <Homepage /> },
+      { path: "checkout", element: <Checkout /> },
+    ],
+  },
+]);
 
 function App() {
-  const [cartShown, setCartShown] = useState(false);
-
-  const showCartHandler = () => {
-    setCartShown(true);
-  };
-
-  const hideCartHandler = () => {
-    setCartShown(false);
-  };
-
-  return (
-    <>
-      <Header showCart={showCartHandler} />
-      <main className="p-4 flex justify-center pb-[100px]">
-        <div className="w-full sm:w-[85%] md:w-[75%] xl:w-[60%]">
-          <Meals />
-        </div>
-      </main>
-      {cartShown && <Cart hideCart={hideCartHandler} />}
-      <Footer />
-    </>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

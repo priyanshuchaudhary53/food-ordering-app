@@ -1,11 +1,14 @@
 import Button from "../UI/Button";
 import TextInput from "../UI/TextInput";
 import useInput from "../../hooks/useInput";
+import { ThreeDots } from "react-loader-spinner";
 
 const isEmpty = (val) => val.trim() === "";
 const isNotPincode = (val) => val.trim().length !== 6;
 
 const CheckoutForm = (props) => {
+  const { onSubmit, isSubmitting } = props;
+
   const {
     value: enteredNameValue,
     isValid: enteredNameIsValid,
@@ -69,7 +72,7 @@ const CheckoutForm = (props) => {
       return;
     }
 
-    props.onSubmit({
+    onSubmit({
       name: enteredNameValue,
       house: enteredHouseNoValue,
       area: enteredAreaValue,
@@ -82,10 +85,25 @@ const CheckoutForm = (props) => {
     pincodeInputReset();
   };
 
+  const Loader = (
+    <div className="">
+      <ThreeDots
+        height="40"
+        width="40"
+        radius="9"
+        color="#4ADE80"
+        ariaLabel="three-dots-loading"
+        wrapperStyle={{}}
+        wrapperClassName=""
+        visible={true}
+      />
+    </div>
+  );
+
   return (
-    <div className="mt-6">
-      <div className=" text-md tracking-tight font-medium">
-        Choose a delivery address
+    <div className="mt-2 mb-2">
+      <div className=" text-md tracking-tight font-bold">
+        Enter delivery address
       </div>
       <form onSubmit={confirmHandler}>
         <TextInput
@@ -122,18 +140,13 @@ const CheckoutForm = (props) => {
           errorLabel="Pincode should be 6 digit only"
         />
 
-        <div className="flex flex-row justify-end gap-4 mt-8">
-          <Button
-            bgcolor="bg-black"
-            textcolor="text-white"
-            typeButton={true}
-            onClick={props.onCancel}
-          >
-            Cancel
-          </Button>
-          <Button bgcolor="bg-green-400" textcolor="text-black">
-            Order
-          </Button>
+        <div className="flex flex-row items-center justify-end gap-4 mt-8">
+          {isSubmitting && Loader}
+          <div>
+            <Button bgcolor="bg-green-400" textcolor="text-black">
+              Order
+            </Button>
+          </div>
         </div>
       </form>
     </div>

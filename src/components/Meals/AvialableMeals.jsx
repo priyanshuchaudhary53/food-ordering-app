@@ -67,7 +67,7 @@ function AvialableMeals() {
 
   if (isLoading || httpError) {
     return (
-      <div className="flex justify-center items-center mt-10">
+      <div className="flex justify-center items-center my-10">
         {isLoading && (
           <ThreeDots
             height="50"
@@ -91,11 +91,11 @@ function AvialableMeals() {
 
   return (
     <>
-      <>
+      <div className="mb-20">
         <MealSections title="Recommended" meals={meals.recommended} />
         <MealSections title="Main Course" meals={meals.main} />
         <MealSections title="Biryani" meals={meals.biryani} />
-      </>
+      </div>
     </>
   );
 }

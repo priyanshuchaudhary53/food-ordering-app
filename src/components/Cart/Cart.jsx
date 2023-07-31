@@ -1,25 +1,21 @@
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "../../store/cartSlice";
 
 import Button from "../UI/Button";
 import Modal from "../UI/Modal";
 import CartItem from "./CartItem";
-import CheckoutForm from "./CheckoutForm";
-import { ThreeDots, Watch } from "react-loader-spinner";
+import { useNavigate } from "react-router-dom";
 
 const Cart = (props) => {
   const { hideCart } = props;
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const totalAmount = useSelector(
     (state) => `₹${state.cart.totalAmount.toFixed(2)}`
   );
   const cartItems = useSelector((state) => state.cart.items);
-
-  const [isCheckout, setIsCheckout] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [didSubmit, setDidSubmit] = useState(false);
 
   const hasItems = cartItems.length > 0;
 
@@ -42,47 +38,9 @@ const Cart = (props) => {
   );
 
   const checkoutButtonHandler = () => {
-    setIsCheckout(true);
+    hideCart();
+    navigate("/checkout");
   };
-
-  const submitOrderHandler = async (userData) => {
-    setIsSubmitting(true);
-
-    try {
-      const response = await fetch(
-        "https://react-http-2aaae-default-rtdb.asia-southeast1.firebasedatabase.app/orders.json",
-        {
-          method: "POST",
-          body: JSON.stringify({ user: userData, orderItem: cartItems }),
-        }
-      );
-      if (!response.ok) {
-        throw new Error("Somthing went wrong!");
-      }
-    } catch (err) {
-      alert(err);
-    }
-
-    setIsSubmitting(false);
-    setDidSubmit(true);
-
-    dispatch(cartActions.clearCart());
-  };
-
-  const loader = (
-    <div className="flex justify-center mt-14 mb-8 md:mb-4">
-      <ThreeDots
-        height="50"
-        width="50"
-        radius="9"
-        color="#4ADE80"
-        ariaLabel="three-dots-loading"
-        wrapperStyle={{}}
-        wrapperClassName=""
-        visible={true}
-      />
-    </div>
-  );
 
   const modalActions = (
     <div className="flex flex-row justify-end gap-4 mt-8">
@@ -108,8 +66,11 @@ const Cart = (props) => {
       {hasItems > 0 ? (
         <>
           <hr className="mt-8" />
-          <div className="mt-5 flex ">
-            <div className="w-full font-bold">Sub total</div>
+          <div className="mt-5 -mb-4 flex">
+            <div className="w-full">
+              <p className=" font-bold">Sub total</p>
+              <p className="text-xs">Extra charges may apply</p>
+            </div>
             <div className="w-[150px] text-right font-bold pr-2">
               {totalAmount}
             </div>
@@ -125,41 +86,8 @@ const Cart = (props) => {
         </>
       )}
 
-      {isCheckout && !isSubmitting && (
-        <CheckoutForm onSubmit={submitOrderHandler} onCancel={hideCart} />
-      )}
-
-      {isCheckout && isSubmitting && loader}
-
-      {!isCheckout && !didSubmit && modalActions}
+      {modalActions}
     </>
-  );
-
-  const orderConfirmText = (
-    <div className="mt-10 mb-4 flex justify-center items-center flex-col">
-      <div className="text-3xl md:text-4xl font-bold tracking-tight mb-6 md:mb-8">
-        Thank You{" "}
-      </div>
-      <Watch
-        height="40"
-        width="40"
-        radius="48  "
-        color="#4ADE80"
-        ariaLabel="watch-loading"
-        wrapperStyle={{}}
-        wrapperClassName=""
-        visible={true}
-      />
-      <div className="text-xl md:text-2xl text-black font-medium tracking-tight mt-2">
-        Order Placed
-      </div>
-      <div className="text-center mb-4 md:mb-6">
-        Your order will be delivered soon.
-      </div>
-      <Button textcolor="text-white" bgcolor="bg-black" onClick={hideCart}>
-        Close
-      </Button>
-    </div>
   );
 
   return (
@@ -175,7 +103,7 @@ const Cart = (props) => {
 
       <hr className="mb-8" />
 
-      {didSubmit ? orderConfirmText : cartItemsDiv}
+      {cartItemsDiv}
     </Modal>
   );
 };
