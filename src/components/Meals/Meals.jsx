@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
-import { ThreeDots } from "react-loader-spinner";
 import MealSections from "./MealSections";
+import { LoaderScreen } from "./LoaderScreen";
 
 function Meals() {
   const [meals, setMeals] = useState({});
@@ -68,18 +68,7 @@ function Meals() {
   if (isLoading || httpError) {
     return (
       <div className="flex justify-center items-center my-10">
-        {isLoading && (
-          <ThreeDots
-            height="50"
-            width="50"
-            radius="9"
-            color="#4ADE80"
-            ariaLabel="three-dots-loading"
-            wrapperStyle={{}}
-            wrapperClassName="test-classname"
-            visible={true}
-          />
-        )}
+        {isLoading && <LoaderScreen />}
         {httpError && (
           <p className="text-lg md:text-xl text-center tracking-tight font-medium text-gray-500">
             {httpError}
