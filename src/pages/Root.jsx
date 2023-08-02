@@ -4,6 +4,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import Header from "../components/Layout/Header";
 import Footer from "../components/Layout/Footer";
 import Cart from "../components/Cart/Cart";
+import ScrollToTop from "../components/ScrollToTop";
 
 const RootLayout = () => {
   const [cartShown, setCartShown] = useState(false);
@@ -36,6 +37,7 @@ const RootLayout = () => {
       </main>
       {cartShown && <Cart hideCart={hideCartHandler} />}
       <Footer />
+      <ScrollToTop />
     </>
   );
 };
