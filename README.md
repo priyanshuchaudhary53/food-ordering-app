@@ -9,7 +9,11 @@ In this project, I leveraged the power of React's useState, useReducer, useRef, 
 **Client:**
 React, Redux, TailwindCSS
 
-[![Tech Stack](https://skillicons.dev/icons?i=react,redux,tailwind)](https://skillicons.dev)
+[![Client Tech Stack](https://skillicons.dev/icons?i=react,redux,tailwind)](https://skillicons.dev)
+
+**Backend:**
+Firebase
+[![Backend Tech Stack](https://skillicons.dev/icons?i=firebase)](https://skillicons.dev)
 
 ## Demo
 
