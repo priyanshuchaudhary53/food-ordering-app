@@ -1,7 +1,14 @@
 export const LoaderScreen = () => {
   return (
     <div className="w-full">
-      <div className="flex flex-wrap md:flex-nowrap gap-4">
+      <div className="w-[200px] h-[55px] bg-gray-100 rounded-md"></div>
+      <div className="flex mt-4 gap-4">
+        <div className="bg-gray-100 rounded-md w-full h-[180px]"></div>
+        <div className="bg-gray-100 rounded-md w-full h-[180px] hidden md:block"></div>
+        <div className="bg-gray-100 rounded-md w-full h-[180px] hidden md:block"></div>
+      </div>
+
+      <div className="flex flex-wrap mt-[80px] md:flex-nowrap gap-4">
         <div className="w-full md:w-[80%]">
           <div className="w-[200px] h-[55px] bg-gray-100 rounded-md"></div>
           <div className="w-full h-[90px] bg-gray-100 mt-3 rounded-md"></div>

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import MealSections from "./MealSections";
 import { LoaderScreen } from "./LoaderScreen";
+import MealSwiper from "./MealSwiper";
 
 function Meals() {
   const [meals, setMeals] = useState({});
@@ -80,8 +81,8 @@ function Meals() {
 
   return (
     <>
-      <div className="mb-20">
-        <MealSections title="Recommended" meals={meals.recommended} />
+      <div className="mb-[100px]">
+        <MealSwiper title="Recommended" meals={meals.recommended} />
         <MealSections title="Main Course" meals={meals.main} />
         <MealSections title="Biryani" meals={meals.biryani} />
       </div>
