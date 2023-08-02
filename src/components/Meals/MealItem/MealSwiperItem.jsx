@@ -30,7 +30,7 @@ const MealSwiperItem = (props) => {
   };
 
   return (
-    <div className="border border-slate-300 rounded-md p-4 flex flex-col gap-4">
+    <div className="border border-slate-300 bg-gray-50 rounded-md p-4 flex flex-col gap-4">
       <div>
         <h3 className="text-md md:text-lg font-[600] md:font-medium tracking-tight">
           {name}
