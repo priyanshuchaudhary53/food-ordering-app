@@ -13,6 +13,7 @@ React, Redux, TailwindCSS
 
 **Backend:**
 Firebase
+
 [![Backend Tech Stack](https://skillicons.dev/icons?i=firebase)](https://skillicons.dev)
 
 ## Demo
